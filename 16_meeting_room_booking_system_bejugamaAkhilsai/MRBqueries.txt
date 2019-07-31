@@ -1,0 +1,76 @@
+Database is named as meeting
+
+
+
+
+
+LOGIN_DETAILS TABLE CREATION
+create table Login_details(user varchar(20) primary key,password varchar(40) not null,role varchar(10) not null);
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| user     | varchar(20) | NO   | PRI | NULL    |       |
+| password | varchar(40) | NO   |     | NULL    |       |
+| role     | varchar(10) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+
+
+MEETING_REQUEST TABLE CREATION
+create table Meeting_Request(ID integer auto_increment primary key,Date date,Start_time time,end_time time,user varchar(20) not null,MR_no integer(5) not null,resource integer(5) not null,status varchar(20) not null,FOREIGN KEY fk_usr(user) REFERENCES Login_details(user) 
+ON UPDATE CASCADE
+ON DELETE RESTRICT);
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| ID         | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Date       | date        | YES  |     | NULL    |                |
+| Start_time | time        | YES  |     | NULL    |                |
+| end_time   | time        | YES  |     | NULL    |                |
+| user       | varchar(20) | NO   | MUL | NULL    |                |
+| MR_no      | int(5)      | NO   |     | NULL    |                |
+| resource   | int(5)      | NO   |     | NULL    |                |
+| status     | varchar(20) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+
+
+ insert into Meeting_Request values(101,'2019-07-19','11:10:00','12:10:00','Raju35',1,1,'NEW');
+
+
+MEETING_ROOM TABLE CREATION
+ create table Meeting_Room(MR_no integer not null,Date date not null,Start_time time not null,End_time time not null,Booked_by varchar(20) not null,FOREIGN KEY fk_bkdby(Booked_by) REFERENCES Login_details(user)
+     ON UPDATE CASCADE
+     ON DELETE RESTRICT);
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| MR_no      | int(11)     | NO   |     | NULL    |       |
+| Date       | date        | NO   |     | NULL    |       |
+| Start_time | time        | NO   |     | NULL    |       |
+| End_time   | time        | NO   |     | NULL    |       |
+| Booked_by  | varchar(20) | NO   | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+insert into Meeting_Room values(1,'2019-07-19','11:10:00','12:10:00','Raju35');
+
+
+RESOURCE_USAGE TABLE CREATION
+ create table Resource_usage(Res_no integer not null,Res_name varchar(20) not null,Date date not null,Start_time time not null,End_time time not null,Used_by varchar(20) not null,Used_in integer not null,FOREIGN KEY fk_Resusg(Used_by) REFERENCES Login_details(user)
+     ON UPDATE CASCADE
+     ON DELETE RESTRICT);
+
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Res_no     | int(11)     | NO   |     | NULL    |       |
+| Res_name   | varchar(20) | NO   |     | NULL    |       |
+| Date       | date        | NO   |     | NULL    |       |
+| Start_time | time        | NO   |     | NULL    |       |
+| End_time   | time        | NO   |     | NULL    |       |
+| Used_by    | varchar(20) | NO   | MUL | NULL    |       |
+| Used_in    | int(11)     | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+
+ insert into Resource_usage values(1,'Projector','2019-07-19','11:10:00','12:10:00','Raju35',1);

@@ -1,9 +1,7 @@
 package bean;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import com.mysql.cj.protocol.Resultset;
 
 public class UserDAO {
@@ -94,5 +92,4 @@ public class UserDAO {
 		
 		return false;
 	}
-
 }
